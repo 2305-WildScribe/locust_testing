@@ -5,31 +5,18 @@ from faker import Faker
     
 
 class MyUser(HttpUser):
-    host = "https://safe-refuge-07153-b08bc7602499.herokuapp.com"
+    host = "https://wildscribe-rails-be-faa8001cbf6c.herokuapp.com"
     wait_time = between(1, 5)  # Time between consecutive requests
 
 
     def on_start(self):
-        self.user_id = None 
-        self.users = self.read_users_csv("mock_collections/all_users.csv")
         self.faker = Faker()
-
-    def read_users_csv(self, csv_file):
-        users = []
-        with open(csv_file, "r") as file:
-            reader = csv.reader(file)
-            next(reader)
-            for row in reader:
-                users.append(row)  # Assuming user IDs are in the first column
-        return users
-
 
 
     @task       
     def GetUserAdventures(self):
-                # Define the URL you want to test
-        user = random.choice(self.users)  # Select a random user
-        self.user_id = user[0]
+
+        self.user_id = random.randint(1, 2000)
         endpoint = "/api/v0/user/adventures"
         # Define the JSON body
         payload = { 
