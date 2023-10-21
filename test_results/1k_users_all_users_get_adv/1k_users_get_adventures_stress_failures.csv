@@ -1,0 +1,3 @@
+Method,Name,Error,Occurrences
+POST,/api/v0/user,CatchResponseError('Request took too long: 4.423222 seconds'),1
+POST,/api/v0/user,HTTPError('401 Client Error: Unauthorized for url: /api/v0/user'),12

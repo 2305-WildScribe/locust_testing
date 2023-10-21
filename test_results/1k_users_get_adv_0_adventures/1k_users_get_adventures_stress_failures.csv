@@ -1,0 +1,2 @@
+Method,Name,Error,Occurrences
+POST,/api/v0/user,HTTPError('401 Client Error: Unauthorized for url: /api/v0/user'),16

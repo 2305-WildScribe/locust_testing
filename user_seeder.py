@@ -24,7 +24,7 @@ class UserSeederTaskSet(SequentialTaskSet):
         # Generate a random email with a non-repeating number between 1 and 100
         email = self.faker.email()
         name = self.faker.name()
-        password = self.faker.password()
+        password = self.faker.word()
         
         # Define the JSON payload for creating a user
         payload = {

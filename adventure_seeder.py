@@ -7,7 +7,7 @@ import os
 
 class AdventureSeederTaskSet(SequentialTaskSet):
     def on_start(self):
-        self.seed_amount = 15
+        self.seed_amount = 5
         # Creates output_csvs if they don't exist
         self.create_output_csv_if_not_exists()
         # Loads all user IDs present.
