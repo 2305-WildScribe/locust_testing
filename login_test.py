@@ -1,13 +1,12 @@
-from locust import HttpUser, task, between, SequentialTaskSet, events, User
+from locust import HttpUser, task, between
 
 import random
 import csv
 from faker import Faker
-from locust.exception import RescheduleTask
     
-class LoginTaskSet(SequentialTaskSet):
-    
-
+class MyUser(HttpUser):
+    host = "https://safe-refuge-07153-b08bc7602499.herokuapp.com"
+    wait_time = between(1, 5)  # Time between consecutive requests
     def on_start(self):
         self.user_id = None 
         self.users = self.read_users_csv("mock_collections/all_users.csv")
@@ -31,10 +30,8 @@ class LoginTaskSet(SequentialTaskSet):
             password = user[3]
             self.user_id = user[0]
     
-    # Define the URL you want to test
         endpoint = "/api/v0/user"
 
-        # Define the JSON body
         payload = {
             "data": {
                 "type": "user",
@@ -45,7 +42,6 @@ class LoginTaskSet(SequentialTaskSet):
             }
         }
 
-        # Set the request headers
         headers = {
             "Content-Type": "application/json"
         }
@@ -63,10 +59,7 @@ class LoginTaskSet(SequentialTaskSet):
                 response.failure(f"Got wrong response: {response.status_code}")
 
     
-class MyUser(HttpUser):
-    host = "https://safe-refuge-07153-b08bc7602499.herokuapp.com"
-    wait_time = between(1, 5)  # Time between consecutive requests
-    tasks = [LoginTaskSet]
+
     
 #     def __init__(self, *args, **kwargs):
 #         super().__init__(*args, **kwargs)

@@ -1,10 +1,13 @@
-from locust import HttpUser, task, between, SequentialTaskSet
-import json
+from locust import HttpUser, task, between
 import random
 import csv
 from faker import Faker
     
-class GetAdventuresTaskSet(SequentialTaskSet):
+
+class MyUser(HttpUser):
+    host = "https://safe-refuge-07153-b08bc7602499.herokuapp.com"
+    wait_time = between(1, 5)  # Time between consecutive requests
+
 
     def on_start(self):
         self.user_id = None 
@@ -98,9 +101,3 @@ class GetAdventuresTaskSet(SequentialTaskSet):
                 response.success()
             else:
                 response.failure(f"Got wrong response: {response.status_code}")
-
-        
-class MyUser(HttpUser):
-    host = "https://safe-refuge-07153-b08bc7602499.herokuapp.com"
-    wait_time = between(1, 5)  # Time between consecutive requests
-    tasks = [GetAdventuresTaskSet]
