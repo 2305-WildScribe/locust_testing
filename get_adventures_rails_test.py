@@ -1,11 +1,10 @@
 from locust import HttpUser, task, between
 import random
-import csv
 from faker import Faker
     
 
 class MyUser(HttpUser):
-    host = "https://wildscribe-rails-be-faa8001cbf6c.herokuapp.com"
+    host = "https://wildscribe-rails-test-3a5fcd1ed43b.herokuapp.com/"
     wait_time = between(1, 5)  # Time between consecutive requests
 
 
@@ -39,7 +38,7 @@ class MyUser(HttpUser):
             if response.elapsed.total_seconds() > 1.0:
                 response.failure(f"Request took too long: {response.elapsed.total_seconds()} seconds")
             elif response.status_code == 404:
-                response.success()
+                response.failure()
             elif response.status_code == 200:
                 response.success()
             else:

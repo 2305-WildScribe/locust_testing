@@ -61,8 +61,6 @@ class MyUser(HttpUser):
             else:
                 response.failure(f"Got wrong response: {response.status_code}")
 
-
-
     @task
     def GetUserAdventures(self):
         if self.user_id is None:
