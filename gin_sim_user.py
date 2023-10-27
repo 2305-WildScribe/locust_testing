@@ -60,6 +60,8 @@ class MyUser(HttpUser):
                 response.success()
             else:
                 response.failure(f"Got wrong response: {response.status_code}")
+        
+        self.wait()
 
     @task
     def GetUserAdventures(self):
@@ -94,6 +96,8 @@ class MyUser(HttpUser):
                 response.success()
             else:
                 response.failure(f"Got wrong response: {response.status_code}")
+        
+        self.wait()
 
     @task
     def CreateAdventure(self):
@@ -136,6 +140,8 @@ class MyUser(HttpUser):
                 response.failure(f"Request took too long: {response.elapsed.total_seconds()} seconds")
             else:
                 response.failure(f"Got wrong response: {response.status_code}")
+        
+        self.wait() 
 
     @task
     def GetAnAdventure(self):
@@ -170,6 +176,8 @@ class MyUser(HttpUser):
                 response.success()
             else:
                 response.failure(f"Got wrong response: {response.status_code}")
+        
+        self.wait()
 
     @task
     def UpdateAdventure(self):
@@ -217,6 +225,8 @@ class MyUser(HttpUser):
                 response.success()
             else:
                 response.failure(f"Got wrong response: {response.status_code}")
+        
+        self.wait()
 
     @task
     def DeleteAdventure(self):
@@ -253,6 +263,8 @@ class MyUser(HttpUser):
                 response.success()
             else:
                 response.failure(f"Got wrong response: {response.status_code}")
+
+        self.wait()
 
     @task
     def Logout(self):
