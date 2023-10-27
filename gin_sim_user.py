@@ -24,7 +24,7 @@ class MyUser(HttpUser):
         return users
     
     @task
-    def login_user(self):        
+    def login_user(self):
         if self.users:
             user = random.choice(self.users)
             name = user[1] 
@@ -258,3 +258,9 @@ class MyUser(HttpUser):
     def Logout(self):
         self.user_id = None
         print("User Logged Out")
+
+    @task
+    def cleanup(self):
+        if self.user_id is not None:
+            self.DeleteAdventure()
+            self.Logout()
