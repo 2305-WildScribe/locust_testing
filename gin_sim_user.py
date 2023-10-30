@@ -24,7 +24,7 @@ class MyUser(HttpUser):
         return users
     
     @task
-    def login_user(self):        
+    def login_user(self):
         if self.users:
             user = random.choice(self.users)
             name = user[1] 
@@ -60,6 +60,8 @@ class MyUser(HttpUser):
                 response.success()
             else:
                 response.failure(f"Got wrong response: {response.status_code}")
+        
+        self.wait()
 
     @task
     def GetUserAdventures(self):
@@ -94,6 +96,8 @@ class MyUser(HttpUser):
                 response.success()
             else:
                 response.failure(f"Got wrong response: {response.status_code}")
+        
+        self.wait()
 
     @task
     def CreateAdventure(self):
@@ -136,6 +140,8 @@ class MyUser(HttpUser):
                 response.failure(f"Request took too long: {response.elapsed.total_seconds()} seconds")
             else:
                 response.failure(f"Got wrong response: {response.status_code}")
+        
+        self.wait() 
 
     @task
     def GetAnAdventure(self):
@@ -170,6 +176,8 @@ class MyUser(HttpUser):
                 response.success()
             else:
                 response.failure(f"Got wrong response: {response.status_code}")
+        
+        self.wait()
 
     @task
     def UpdateAdventure(self):
@@ -217,6 +225,8 @@ class MyUser(HttpUser):
                 response.success()
             else:
                 response.failure(f"Got wrong response: {response.status_code}")
+        
+        self.wait()
 
     @task
     def DeleteAdventure(self):
@@ -254,7 +264,15 @@ class MyUser(HttpUser):
             else:
                 response.failure(f"Got wrong response: {response.status_code}")
 
+        self.wait()
+
     @task
     def Logout(self):
         self.user_id = None
         print("User Logged Out")
+
+    @task
+    def cleanup(self):
+        if self.user_id is not None:
+            self.DeleteAdventure()
+            self.Logout()

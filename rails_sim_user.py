@@ -15,7 +15,11 @@ class MyUser(HttpUser):
 
 
     @task
-    def login_user(self):  
+    def login_user(self):
+        fake = Faker()
+        email = fake.email()
+        password = fake.password()
+
         email = f"me+{self.index}@gmail.com"
         password = f"password+{self.index}"
 
@@ -225,3 +229,9 @@ class MyUser(HttpUser):
     @task
     def Logout(self):
         self.user_id = None
+
+    @task
+    def cleanup(self):
+        if self.user_id is not None:
+            self.DeleteAdventure()
+            self.Logout()
